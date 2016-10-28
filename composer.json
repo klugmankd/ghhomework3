@@ -1,0 +1,18 @@
+{
+    "name": "vendor/Engine",
+    "description": "work of car engine",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kostya Klugman",
+            "email": "klugmankd@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Vendor\\ghhomework3\\": "src"
+        }
+    },
+    "require": {}
+}
