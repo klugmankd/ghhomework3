@@ -1,10 +1,11 @@
 <?php
 
-namespace Vendor\Engine;
+namespace Vendor\Engine\Injector;
 
 use Vendor\Engine\Engine as Eng;
+use Vendor\Engine\FuelSupply;
 
-class Carburetor extends Eng implements FuelSupply
+class Injector extends Eng implements FuelSupply
 {
 
     /**
@@ -28,10 +29,10 @@ class Carburetor extends Eng implements FuelSupply
         $this->setMaxTemperature($maxTemperature);
         $this->setMaxVolume($maxVolume);
         $properties = $this->fuelSupplyStart($fuel);
-        if (!$this->engineCrash($properties['pressure'],
-            $properties['temperature'],
-            $properties['volume'])) {
-            $this->engineMove($properties['fuelSupplyResult']);
+        if ($properties['fuelSupplyResult'] && !$this->engineCrash($properties['pressure'],
+                $properties['temperature'],
+                $properties['volume'])) {
+            $this->engineMove($fuel);
         }
     }
 
@@ -39,7 +40,6 @@ class Carburetor extends Eng implements FuelSupply
     {
         $this->engineMove($this->fuelSupplyStop());
     }
-
     /**
      * @param string $fuel
      * @return array
@@ -50,7 +50,7 @@ class Carburetor extends Eng implements FuelSupply
         $temperature = 0;
         $volume = 0;
         if ($fuel == 'Petrol') {
-            // carburettor fuel reprocessing process
+            // injector fuel reprocessing process
             $params = array(
                 'fuelSupplyResult' => TRUE,
                 'pressure' => $pressure,
@@ -58,7 +58,7 @@ class Carburetor extends Eng implements FuelSupply
                 'volume' => $volume);
             return $params;
         } elseif ($fuel == 'Gas') {
-            // carburettor fuel reprocessing process
+            // injector fuel reprocessing process
             $params = array(
                 'fuelSupplyResult' => TRUE,
                 'pressure' => $pressure,
@@ -82,6 +82,4 @@ class Carburetor extends Eng implements FuelSupply
         // fuel supply stop process
         return false;
     }
-    
-    
 }
